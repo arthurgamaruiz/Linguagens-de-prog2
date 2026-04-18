@@ -47,22 +47,34 @@ app.post('/tarefas', async (req, res) => {
         })
     }
 })
-//fazer a rota para atualizar e a rota para remover
-app.put('/tarefas', async (req, res) => {
+//fazer a rota para atualizar
+app.put('/tarefas/:id', async (req, res) => {
     try {
-        const {titulo, descricao, id} = req.body
-        // console.log(req.body.id)
+        const {id} = req.params
+        const {titulo, descricao} = req.body
         const [resultado] = await conexao.query("UPDATE tb_tarefa SET titulo = ?, descricao = ? WHERE cod_tarefa = ?", [titulo, descricao, id])
         res.status(201).json({
             titulo: titulo,
             descricao: descricao,
-            cod_tarefa: req.body.id
+            cod_tarefa: id
         })
     } catch (erro) {
         console.log(erro)
         res.status(500).json({
-            erro: 'Erro ao atualziar titulo e descricao'
+            erro: 'Erro ao atualizar titulo e descricao'
         })
+    }
+})
+//rota para remover
+app.delete('/tarefas/:id', async (req, res) => {
+    try {
+        const {id} = req.params
+        const sql = "DELETE FROM tb_tarefa WHERE cod_tarefa = ?"
+        await conexao.query(sql, [id])
+        res.json({mensagem: "Tarefa excluída com sucesso!"})
+    } catch (erro) {
+        console.log(erro)
+        res.status(500).json({erro: 'Erro ao excluir tarefa'})
     }
 })
 
