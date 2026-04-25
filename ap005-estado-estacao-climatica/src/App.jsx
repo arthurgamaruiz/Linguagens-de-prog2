@@ -1,5 +1,5 @@
 //rafce
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 
 const App = () => {
   const [latitude, setLatitude] = useState(null)
@@ -54,6 +54,11 @@ const App = () => {
         console.log(`Erro: ${erro.toString()}`);
       })
   }
+  //obtém a localização apenas uma vez (logo após a primeira renderização)
+  useEffect(() => {
+    obterLocalizacao()
+  }, [])
+  
   return (
     <div className="container mt-2">        
       <div className="row justify-content-center">
