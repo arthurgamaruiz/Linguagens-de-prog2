@@ -5,26 +5,31 @@ import 'primeicons/primeicons.css'
 import 'primereact/resources/primereact.min.css'
 import 'primereact/resources/themes/bootstrap4-light-blue/theme.css'
 import Busca from './Busca'
-import {createClient} from 'pexels'
+import Imagem from './Imagem'
+import ListaImagens from './ListaImagens'
+import PexelsLogo from './PexelsLogo'
+import pexelsClient from '../utils/pexelsClient'
 
 export default class App extends React.Component {
 
-    pexelsClient = null
+    state = {
+        photos: []
+    }
     
     onBuscaRealizada = (termoDeBusca) => {
-        this.pexelsClient.photos.search({
-            query: termoDeBusca})
-            .then((result => console.log(result)))
+        pexelsClient.get('/search', {
+            params: {query: termoDeBusca}
+        })
+        .then(result => this.setState({photos: result.data.photos}))
+        // .then(result => console.log(result))
     }
 
-    //executa um código após construção do objeto
-    componentDidMount(){
-        this.pexelsClient = createClient('20FuZCakXzRS4AtCezvajraxB0F0dWzcjFN1OSJSaOUPseS3EzPrdtcf')
-    }
     render(){
         return (
         <div className='grid justify-content-center m-auto w-9 border-round border-1'>
-
+            <div className="col-12">
+                <PexelsLogo/>
+            </div>
             <div className='col-12'>
                 <i className="pi pi-apple"></i>
             </div>
@@ -36,9 +41,16 @@ export default class App extends React.Component {
                     dica='Digite o que deseja ver...'
                     onBuscaRealizada={this.onBuscaRealizada}/>
             </div>
+            <div className="col-12">
+                {/* responsividade das colunas funciona apenas para divs filhas diretas de um grid */}
+                <div className="grid">
+                    <ListaImagens 
+                    imgStyle={"col-12 md:col-6 lg: col-4 xl:col-3"}
+                    photos={this.state.photos}/>
+                </div>
+            </div>
         </div>
         )
     }
-
 }
 
