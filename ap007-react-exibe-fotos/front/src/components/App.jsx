@@ -8,7 +8,8 @@ import Busca from './Busca'
 import Imagem from './Imagem'
 import ListaImagens from './ListaImagens'
 import PexelsLogo from './PexelsLogo'
-import pexelsClient from '../utils/pexelsClient'
+//import pexelsClient from '../utils/pexelsClient   '
+import axios from 'axios'
 
 export default class App extends React.Component {
 
@@ -16,8 +17,8 @@ export default class App extends React.Component {
         photos: []
     }
     
-    onBuscaRealizada = (termoDeBusca) => {
-        pexelsClient.get('/search', {
+    onBuscaRealizada = async (termoDeBusca) => {
+        let result = await axios.get('http://localhost:3000/search', {
             params: {query: termoDeBusca}
         })
         .then(result => this.setState({photos: result.data.photos}))
