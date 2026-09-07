@@ -18,16 +18,16 @@ include: package:lints/recommended.yaml
 linter: 
   rules:
     - prefer_final_locals
-    - avoid_print
+    - avoid_print                       # em servidor, use log estruturado, não print
     - always_declare_return_types
-    - unawaited_futures
+    - unawaited_futures                 # Futures esquecidos são bugs silenciosos 
 # linter:
 #   rules:
 #     - camel_case_types
 analyzer: 
   language:
-    strict-casts: true
-    strict-raw-types: true
+    strict-casts: true                  # proíbe conversões implícitas a partir de dynamic
+    strict-raw-types: true              # exibe parâmetros de tipo explícitos
 # analyzer:
 #   exclude:
 #     - path/to/excluded/files/**
