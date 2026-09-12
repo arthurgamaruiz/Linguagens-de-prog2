@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'env.dart';
 
+/// Configuração da aplicação, resolvida uma única vez durante o boot.
 class AppConfig {
   const AppConfig({
     required this.appEnv,
@@ -26,7 +27,18 @@ class AppConfig {
   final int dbPoolSize;
 
   //método getter 
+  /// Verdadeiro quando a aplicação roda em produção; usado para decidir
+  /// o nível de detalhe das mensagens de erro devolvidas ao cliente.
   bool get producao => appEnv == 'production';
+
+
+  /// Constrói a configuração a partir do ambiente e valida os limites.
+  ///
+  /// `factory` é um construtor que não é obrigado a criar uma instância nova:
+  /// ele executa código antes de devolver o objeto e pode retornar um valor
+  /// de cache, uma subclasse ou, como aqui, lançar exceção se algo estiver
+  /// errado. Um construtor comum não permite nada disso, porque seu corpo só
+  /// roda depois que o objeto já existe.
 
   //construtor nomeado (singleton -> uma instância)
   factory AppConfig.fromEnv(){
@@ -51,7 +63,7 @@ class AppConfig {
   }
 
   @override
-  //representação segura para log
+  //representação segura para log: a senha nunca é impressa.
   String toString(){
     return 'AppConfig(appEnv: $appEnv, serverPort: $serverPort, db: $dbUser@$dbHost:$dbPort/$dbName, pool: $dbPoolSize)';
   }
