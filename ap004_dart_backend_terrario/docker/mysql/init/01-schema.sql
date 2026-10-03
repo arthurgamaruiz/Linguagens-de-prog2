@@ -1,3 +1,4 @@
+
 CREATE DATABASE IF NOT EXISTS terrarios
 
 USE terrarios;
