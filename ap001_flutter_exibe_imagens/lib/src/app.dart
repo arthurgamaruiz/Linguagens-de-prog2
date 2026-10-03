@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class App extends StatelessWidget {
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context){  //passagem via 'props' do react
      //objeto imutável
     return MaterialApp(
       home: Scaffold(
