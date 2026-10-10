@@ -1,5 +1,4 @@
-
-CREATE DATABASE IF NOT EXISTS terrarios
+CREATE DATABASE IF NOT EXISTS terrarios;
 
 USE terrarios;
 
@@ -18,7 +17,7 @@ CREATE TABLE IF NOT EXISTS terrarios(
     KEY idx_terrarios_bioma (bioma),
     CONSTRAINT ck_terrarios_umidade CHECK (umidade_alvo BETWEEN 0 AND 100),
     CONSTRAINT ck_terrarios_volume CHECK (volume_litros > 0)
-)
+);
 
 INSERT INTO terrarios(
     apelido, bioma, umidade_alvo, volume_litros, data_montagem
