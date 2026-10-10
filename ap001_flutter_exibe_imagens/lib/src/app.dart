@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-class App extends StatelessWidget {
+class AppState extends State<App> {
+  int numeroImagens = 0;
   @override
   Widget build(BuildContext context){  //passagem via 'props' do react
      //objeto imutável
@@ -12,10 +13,19 @@ class App extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
           onPressed: (){
+            // numeroImagens++;
+            setState(() => numeroImagens++);
             print('Estou no arquivo app.dart');
-            }
+          }
         ),  //botão flutuante
+        body: Center(child:Text('$numeroImagens')),
       )
     ); 
+  }
+}
+
+class App extends StatefulWidget{
+  State<App> createState(){
+    return AppState();
   }
 }
